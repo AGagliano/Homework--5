@@ -1,0 +1,47 @@
+#The following code cracks the factorization of a 154 digit number, n
+#First, we outline how to use Fermat's Little Theorem to prove n is composite without factoring n.
+#Secondly, we use the hint that n = p*q with p and q being too close for comfort
+
+#Using Fermat's Little Theorem
+if n is a probably prime, then any integer a, such that 1<a<n
+satisfies the equation: a^n is congruent to a (mod n)
+expressed differently, a^n - 2 = k*n, for some integer multiple k
+this does not hold true if n is composite.
+
+a = 2
+n = 4654252230393111226989449826741007006486078009450861095070222439898324342353927553909251532232407850265642079868425916328810273416481567992145162141358151
+
+if a**n % n == a:
+  print "N is Probably prime"
+else:
+  print "N is Composite." 
+
+  #main problem is SAGE won't raise anything to the power of n, because n is too large.
+
+#Factoring n
+
+a = 4654252230393111226989449826741007006486078009450861095070222439898324342353927553909251532232407850265642079868425916328810273416481567992145162141358151**.5
+n = 4654252230393111226989449826741007006486078009450861095070222439898324342353927553909251532232407850265642079868425916328810273416481567992145162141358151
+n = int(n)
+q = next_probable_prime(a);         #since we know p and q are close, they have to be close to the square of n
+q = int(q)
+p = n/q                             #find the p associated with this q that is "close" to sqrt(n)
+
+while is_prime(p) == False:         #continually increase to the next prime q until the corresponding p is also prime.
+    q = next_probable_prime(q)
+    q = int(q)
+    p = n/q
+print q
+print p
+
+#output
+68222080226222295576259379443477302265930854135903680650971739568487985590247     #value of q
+68222080226222296787575357593591367629971427906324329442967412769515259237583     #value of p
+
+#check primality of p and q
+is_prime(q)
+is_prime(p)
+
+  #output
+  True
+  True
